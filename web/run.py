@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', type=str, help='server address')
     parser.add_argument('--port', type=int, help='server port')
-    parser.add_argument('-r', action="reload", help='make development easier')
+    parser.add_argument('-r', action='store_true', help='make development easier')
     args = parser.parse_args()
 
     config: dict
