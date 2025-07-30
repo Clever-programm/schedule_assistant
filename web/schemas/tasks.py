@@ -8,6 +8,7 @@ class TaskSchema(BaseModel):
     date: str
     start_time: str
     end_time: str | None
+    active: bool
 
 class CreateTaskSchema(BaseModel):
     task: str
