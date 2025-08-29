@@ -9,11 +9,11 @@ async def add_task(db: AsyncSession, task: TaskSchema):
     """
     Add a record to the database
     """
-    db_order = Task(**task.model_dump())
-    db.add(db_order)
+    db_task = Task(**task.model_dump())
+    db.add(db_task)
     await db.flush()
-    await db.refresh(db_order)
-    return db_order
+    await db.refresh(db_task)
+    return db_task
 
 async def get_user_tasks(db: AsyncSession, owner_id: int):
     """
@@ -23,14 +23,14 @@ async def get_user_tasks(db: AsyncSession, owner_id: int):
     result = await db.execute(stmt)
     return result.scalars().all()
 
-async def delete_order(db: AsyncSession, task_id: int):
+async def delete_task(db: AsyncSession, task_id: int):
     """
     Delete record from the database by id
     """
     stmt = select(Task).where(Task.id == task_id)
     result = await db.execute(stmt)
-    order = result.scalar_one_or_none()
-    if order:
-        await db.delete(order)
+    task = result.scalar_one_or_none()
+    if task:
+        await db.delete(task)
         await db.flush()
-    return order
+    return task
