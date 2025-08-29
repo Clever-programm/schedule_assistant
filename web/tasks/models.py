@@ -12,6 +12,6 @@ class Task(Base):
     task_id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), index=True)
     owner_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     task_text = Column(String)
-    is_done = Column(Boolean, nullable=False, index=True)
+    is_done = Column(Boolean, nullable=False, default=False, index=True)
 
     owner = relationship("User", back_populates="tasks")

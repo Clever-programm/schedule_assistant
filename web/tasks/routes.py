@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_db
 from tasks.crud import add_task, get_user_tasks
-from tasks.schemas import CreateTaskSchema
+from tasks.schemas import CreateTaskSchema, TaskSchema
 
 task_router = APIRouter(prefix="/tasks")
 
@@ -15,4 +16,4 @@ async def create_task(new_task: CreateTaskSchema, db: AsyncSession = Depends(get
 @task_router.get("/{user_id}")
 async def read_tasks(user_id: str, db: AsyncSession = Depends(get_db)) -> list:
     tasks = await get_user_tasks(db, user_id)
-    return tasks
+    return jsonable_encoder(tasks)
