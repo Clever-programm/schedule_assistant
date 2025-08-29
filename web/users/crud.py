@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,7 +17,7 @@ async def add_user(db: AsyncSession, user: UserSchema):
     await db.refresh(db_user)
     return db_user
 
-async def get_user(db: AsyncSession, user_id: int):
+async def get_user(db: AsyncSession, user_id: uuid.UUID):
     """
     Get all records from the database
     """
@@ -23,7 +25,7 @@ async def get_user(db: AsyncSession, user_id: int):
     result = await db.execute(stmt)
     return result.scalar_one_or_none()
 
-async def delete_user(db: AsyncSession, user_id: int):
+async def delete_user(db: AsyncSession, user_id: uuid.UUID):
     """
     Delete record from the database by id
     """

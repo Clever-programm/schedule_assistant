@@ -1,4 +1,5 @@
 import re
+import uuid
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -20,4 +21,4 @@ class CreateUserSchema(BaseModel):
         return value
 
 class UserSchema(CreateUserSchema):
-    id: int = Field(title="User id")
+    id: uuid.UUID = Field(title="User id")

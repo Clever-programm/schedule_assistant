@@ -1,11 +1,13 @@
+import uuid
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tasks.models import Task
-from tasks.schemas import TaskSchema
+from tasks.schemas import CreateTaskSchema
 
 
-async def add_task(db: AsyncSession, task: TaskSchema):
+async def add_task(db: AsyncSession, task: CreateTaskSchema):
     """
     Add a record to the database
     """
@@ -15,7 +17,7 @@ async def add_task(db: AsyncSession, task: TaskSchema):
     await db.refresh(db_task)
     return db_task
 
-async def get_user_tasks(db: AsyncSession, owner_id: int):
+async def get_user_tasks(db: AsyncSession, owner_id: uuid.UUID):
     """
     Get all records from the database
     """
@@ -23,7 +25,7 @@ async def get_user_tasks(db: AsyncSession, owner_id: int):
     result = await db.execute(stmt)
     return result.scalars().all()
 
-async def delete_task(db: AsyncSession, task_id: int):
+async def delete_task(db: AsyncSession, task_id: uuid.UUID):
     """
     Delete record from the database by id
     """
