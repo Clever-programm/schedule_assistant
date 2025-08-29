@@ -4,10 +4,10 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from users.models import User
-from users.schemas import UserSchema
+from users.schemas import CreateUserSchema
 
 
-async def add_user(db: AsyncSession, user: UserSchema):
+async def add_user(db: AsyncSession, user: CreateUserSchema):
     """
     Add a record to the database
     """
